@@ -3,14 +3,14 @@ blog: http://aakashjapi.com/fuckin-search-engines-how-do-they-work/
 https://github.com/logicx24/Text-Search-Engin
 '''
 
-import index_search.InvertedIndex
+from index_search.InvertedIndex import InvertedIndex
 import re
 
 class Query:
 
     def __init__(self, filenames):
         self.filenames = filenames
-        self.index = index_search.InvertedIndex.InvertedIndex(self.filenames)
+        self.index = InvertedIndex(self.filenames)
         self.invertedIndex = self.index.totalIndex
         self.regularIndex = self.index.regularIndex
 
@@ -113,5 +113,5 @@ if __name__ == '__main__':
     results = query.one_word_query('straight')
     print(results)
 
-    results = query.free_text_query('quite natural')
+    results = query.free_text_query('seemed quite natural flashed across')
     print(results)
