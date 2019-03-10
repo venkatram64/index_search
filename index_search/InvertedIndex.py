@@ -58,6 +58,7 @@ class InvertedIndex:
             total[filename] = self.index_one_file(term_lists[filename])
         return total
 
+    #regular index, which is indexed like {filename: {word:[pos1, pos2, ...}, ...}
     def regIndex(self):
         return self.make_indices(self.file_to_terms)
 
@@ -70,9 +71,9 @@ class InvertedIndex:
         for filename in indices.keys():
             self.tf[filename] = {}
             for word in indices[filename].keys():
-                self.tf[filename][word] = len(indices[filename][word])
+                self.tf[filename][word] = len(indices[filename][word]) #term frequency is term count in a document
                 if word in self.df.keys():
-                    self.df[word] += 1
+                    self.df[word] += 1   #document frequency word/term count across all the documents
                 else:
                     self.df[word] = 1
                 if word in total_index.keys():
