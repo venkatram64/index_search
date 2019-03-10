@@ -17,7 +17,7 @@ class Query:
     def make_vectors(self, documents):
         vecs = {}
         for doc in documents:
-            doc_vec = [0] * len(self.index.getUniques())
+            doc_vec = [0] * len(self.index.getUniques())  # array object with zero filled will be created.
             for ind, term in enumerate(self.index.getUniques()):
                 try:
                     doc_vec[ind] = self.index.generateScores(term, doc)
@@ -34,7 +34,7 @@ class Query:
         return count
 
     def term_freq(self, terms, query):
-        temp = [0] * len(terms)
+        temp = [0] * len(terms)   # array object with zero filled will be created.
         for i, term in enumerate(terms):
             temp[i] = self.query_freq(term, query)
         return temp
@@ -43,7 +43,7 @@ class Query:
         pattern = re.compile('[\W_]+')
         query = pattern.sub(' ', query)
         query1s = query.split()
-        queryVec = [0] * len(query1s)
+        queryVec = [0] * len(query1s)    # array object with zero filled will be created.
         index = 0
         final = []
         for ind, word in enumerate(query1s):
