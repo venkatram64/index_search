@@ -3,7 +3,7 @@ blog: http://aakashjapi.com/fuckin-search-engines-how-do-they-work/
 https://github.com/logicx24/Text-Search-Engin
 '''
 
-from index_search.InvertedIndex import InvertedIndex
+from index_search.index import InvertedIndex
 import re
 
 class Query:
