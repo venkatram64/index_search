@@ -95,7 +95,7 @@ class Query:
         listOfLists, result = [],[]
         for word in textQ.split():
             listOfLists.append(self.one_word_query(word))
-        setted = set(listOfLists[0]).intersection(*listOfLists)
+        setted = set(listOfLists[0]).intersection(*listOfLists)  #means unpacks the listOfLists into intersection
         for filename in setted:
             temp = []
             for word in textQ.split():
