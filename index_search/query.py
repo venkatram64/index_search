@@ -83,12 +83,12 @@ class Query:
 
     def one_word_query(self, word):
         pattern = re.compile('[\W_]+')
+        word = pattern.sub(' ', word)
         flag = self.is_word_stopword(word)
         if flag:
             #print("User another word.")
             return ""
 
-        word = pattern.sub(' ', word)
         if word in self.invertedIndex.keys():
             return self.rankResults([filename for filename in self.invertedIndex[word].keys()], word)
         else:
