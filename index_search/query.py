@@ -14,6 +14,14 @@ class Query:
         self.invertedIndex = self.index.totalIndex
         self.regularIndex = self.index.regularIndex
 
+    def is_word_stopword(self, word):
+        stopwords = open('../my_corpus/stopwords.txt').read()
+        if word in stopwords:
+            return True
+        else:
+            return False
+
+
     def make_vectors(self, documents):
         vecs = {}
         for doc in documents:
@@ -75,6 +83,11 @@ class Query:
 
     def one_word_query(self, word):
         pattern = re.compile('[\W_]+')
+        flag = self.is_word_stopword(word)
+        if flag:
+            #print("User another word.")
+            return ""
+
         word = pattern.sub(' ', word)
         if word in self.invertedIndex.keys():
             return self.rankResults([filename for filename in self.invertedIndex[word].keys()], word)
@@ -111,7 +124,10 @@ class Query:
 if __name__ == '__main__':
     query = Query(['../my_corpus/doc01.txt', '../my_corpus/doc02.txt'])
     results = query.one_word_query('straight')
-    print(results)
+    print("One word query: ", results)
+
+    results = query.phrase_query('great disappointment')
+    print("Phrase Query: ", results)
 
     results = query.free_text_query('seemed quite natural flashed across')
-    print(results)
+    print("Free Text Query: ", results)
