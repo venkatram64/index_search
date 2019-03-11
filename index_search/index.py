@@ -24,6 +24,7 @@ class InvertedIndex:
         self.totalIndex = self.fullIndex()
         self.vectors = self.vectorize()
         self.magni = self.magnitudes(self.filenames)
+        self.populateScores()
 
 
     def process_files(self):
