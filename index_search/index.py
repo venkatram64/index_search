@@ -101,15 +101,18 @@ class InvertedIndex:
     def term_frequency(self, term, document):
         return self.tf[document][term]/self.magni[document] if term in self.tf[document].keys() else 0
 
+    #the number of documents the term t shows up in
     def document_frequency(self, term):
         if term in self.totalIndex.keys():
             return len(self.totalIndex[term].keys())
         else:
             return 0
 
+    #total number of documents
     def collection_size(self):
         return len(self.filenames)
 
+    #the total number of documents divided by the number of documents the term t shows up in
     def inverse_doc_frequency(self, N, N_t):
         if N_t != 0:
             return math.log(N/N_t)
