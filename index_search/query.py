@@ -75,11 +75,14 @@ class Query:
             pass
         return finalScore
 
+
     def dotProduct(self, doc1, doc2):
         if len(doc1) != len(doc2):
             return 0
         return sum([x*y for x, y in zip(doc1, doc2)])
 
+
+    '''gives the documenst(s) for matched term queries.'''
     def rankResults(self, resultDocs, query):
         vectors = self.make_vectors(resultDocs)
         queryVec = self.query_vec(query)
@@ -88,7 +91,7 @@ class Query:
         results = [x[1] for x in results]
         return results
 
-
+    '''This method gives the document(s) for matched term'''
     def one_word_query(self, word):
         pattern = re.compile('[\W_]+')
         word = pattern.sub(' ', word)
@@ -102,6 +105,7 @@ class Query:
         else:
             return []
 
+    '''This method gives the document(s) for matched terms'''
     def free_text_query(self, textQ):
         pattern = re.compile('[\W_]+')
         textQ = pattern.sub(' ', textQ)
@@ -110,6 +114,7 @@ class Query:
             result += self.one_word_query(word)
         return self.rankResults(list(set(result)), textQ)
 
+    '''This method gives the document(s) for matched terms which are in adjacent'''
     def phrase_query(self, textQ):
         pattern = re.compile('[\W_]+')
         textQ = pattern.sub(' ', textQ)
