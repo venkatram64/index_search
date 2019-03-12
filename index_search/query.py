@@ -21,20 +21,20 @@ class Query:
         else:
             return False
 
-    #finding the score of each words in corpus
+    '''finding the score of each word in corpus'''
     def make_vectors(self, documents):
         vecs = {}
         for doc in documents:
             doc_vec = [0] * len(self.index.getUniques())  # array object with zero filled will be created.
-            for ind, term in enumerate(self.index.getUniques()):
+            for ind, term in enumerate(self.index.getUniques()): #enumerating each term in indexed documents
                 try:
-                    doc_vec[ind] = self.index.generateScores(term, doc)  #tf*idf
+                    doc_vec[ind] = self.index.generateScores(term, doc)  #storing earch term score => tf*idf
                 except Exception:
                     pass
             vecs[doc] = doc_vec
         return vecs
 
-    #in given search query, finding the frequency of given words by comparing with indexed terms
+    '''in given search query, finding the frequency of given words by comparing with indexed terms'''
     def query_freq(self, term, query):
         count = 0
         for word in query.split():
@@ -42,8 +42,8 @@ class Query:
                 count += 1
         return count
 
-    #finding the all indexed terms frequency with the query terms, if term is having
-    #frequency means query terms exists in document.
+    '''finding the all indexed terms frequency with the query terms, if term is having
+    frequency means query terms exists in document(s).'''
     def term_freq(self, terms, query):
         temp = [0] * len(terms)   # array object with zero filled will be created.
         for i, term in enumerate(terms):
@@ -61,6 +61,7 @@ class Query:
             queryVec[index] = self.query_freq(word, query)
             index += 1
         try:
+            #getting the idf for each term in corpus
             queryidf = [self.index.idf[word] for word in self.index.getUniques()]
             # finding the magnitude of query terms,those are in
             # indexed documents.
@@ -68,10 +69,11 @@ class Query:
             # finding query terms in indexed document terms
             freq = self.term_freq(self.index.getUniques(), query)
             tf = [x/magnitude for x in freq]
-            final = [tf[i] * queryidf[i] for i in range(len(self.index.getUniques()))]
+            #score
+            finalScore = [tf[i] * queryidf[i] for i in range(len(self.index.getUniques()))]
         except Exception:
             pass
-        return final
+        return finalScore
 
     def dotProduct(self, doc1, doc2):
         if len(doc1) != len(doc2):
