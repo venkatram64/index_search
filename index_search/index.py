@@ -92,7 +92,7 @@ class InvertedIndex:
             vectors[filename] = [len(self.regularIndex[filename][word]) for word in self.regularIndex[filename].keys()]
         return vectors
 
-    def magnitudes(self,documents):
+    def magnitudes(self, documents):
         mags = {}
         for doc in documents:
             mags[doc] = pow(sum(map(lambda x: x**2, self.vectors[doc])), .5)

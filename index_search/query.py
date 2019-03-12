@@ -1,6 +1,6 @@
 '''
 blog: http://aakashjapi.com/fuckin-search-engines-how-do-they-work/
-https://github.com/logicx24/Text-Search-Engin
+https://github.com/logicx24/Text-Search-Engine
 '''
 
 from index_search.index import InvertedIndex
@@ -21,19 +21,20 @@ class Query:
         else:
             return False
 
-
+    #finding the score of each words in corpus
     def make_vectors(self, documents):
         vecs = {}
         for doc in documents:
             doc_vec = [0] * len(self.index.getUniques())  # array object with zero filled will be created.
             for ind, term in enumerate(self.index.getUniques()):
                 try:
-                    doc_vec[ind] = self.index.generateScores(term, doc)
+                    doc_vec[ind] = self.index.generateScores(term, doc)  #tf*idf
                 except Exception:
                     pass
             vecs[doc] = doc_vec
         return vecs
 
+    #in given search query, finding the frequency of given words by comparing with indexed terms
     def query_freq(self, term, query):
         count = 0
         for word in query.split():
@@ -41,6 +42,8 @@ class Query:
                 count += 1
         return count
 
+    #finding the all indexed terms frequency with the query terms, if term is having
+    #frequency means query terms exists in document.
     def term_freq(self, terms, query):
         temp = [0] * len(terms)   # array object with zero filled will be created.
         for i, term in enumerate(terms):
@@ -59,7 +62,10 @@ class Query:
             index += 1
         try:
             queryidf = [self.index.idf[word] for word in self.index.getUniques()]
+            # finding the magnitude of query terms,those are in
+            # indexed documents.
             magnitude = pow(sum(map(lambda x: x**2, queryVec)), .5)
+            # finding query terms in indexed document terms
             freq = self.term_freq(self.index.getUniques(), query)
             tf = [x/magnitude for x in freq]
             final = [tf[i] * queryidf[i] for i in range(len(self.index.getUniques()))]

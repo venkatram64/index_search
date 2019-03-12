@@ -2,7 +2,7 @@ import pandas as pd
 import math
 
 #https://www.youtube.com/watch?v=hXNbFNCgPfY
-
+#https://www.youtube.com/watch?v=Jh1kuqm4rMc&list=PLlWzRW5RWfEX-HeTjCDWTRCOhISKrPAep
 '''
 tf(w) = Number of times the word appears in a document/Total number of words in a document
 
@@ -22,7 +22,7 @@ def computeIDF(docList):
     idfDict = {}
     N = len(docList)
 
-    #counts the number of document tht contain a word w
+    #counts the number of documents tht contain a word w
     idfDict = dict.fromkeys(docList[0].keys(), 0)
     print("1. compute idf")
     print(idfDict)
