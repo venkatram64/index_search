@@ -1,6 +1,11 @@
 '''
 blog: http://aakashjapi.com/fuckin-search-engines-how-do-they-work/
 https://github.com/logicx24/Text-Search-Engine
+
+https://www.youtube.com/watch?v=o5uqBRt-akw&list=PL0ZVw5-GryEkGAQT7lX7oIHqyDPeUyOMQ&index=7
+to implement and query
+
+https://stackoverflow.com/questions/15173225/calculate-cosine-similarity-given-2-sentence-strings
 '''
 
 from index_search.index import InvertedIndex
