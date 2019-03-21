@@ -6,6 +6,10 @@ https://www.youtube.com/watch?v=o5uqBRt-akw&list=PL0ZVw5-GryEkGAQT7lX7oIHqyDPeUy
 to implement and query
 
 https://stackoverflow.com/questions/15173225/calculate-cosine-similarity-given-2-sentence-strings
+
+http://www.sfs.uni-tuebingen.de/~ddekok/ir/lectures/tf-idf-dump.html
+
+https://www.machinelearningplus.com/nlp/cosine-similarity/
 '''
 
 from index_search.index import InvertedIndex
